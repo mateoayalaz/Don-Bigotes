@@ -1,0 +1,20 @@
+#descripcion-pagina {
+
+    padding: 1.8rem 0;
+
+}
+
+#descripcion-pagina > div > h3 {
+
+    font-family: NTF-Grand-Light;
+    font-size: 17px;
+    letter-spacing: 0.05rem;
+
+}
+
+#descripcion-pagina > div > p {
+
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 13px;
+
+}

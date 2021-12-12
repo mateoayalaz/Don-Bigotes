@@ -1,0 +1,78 @@
+/* Acordeon */
+
+.btn:focus,.btn:active {
+
+    outline: none !important;
+    box-shadow: none;
+
+}
+
+.accordion-collapse {
+    
+    border: 0;
+
+}
+
+.accordion-button {
+
+    padding: 15px 0;
+    font-weight: bold;
+    border: 0;
+    font-size: 17px;
+    color: black;
+    text-align: justify;
+    font-family: NTF-Grand-Medium;
+    border-bottom: none;
+
+}
+
+.accordion-button:focus {
+
+    border: none;
+
+}
+
+.accordion-item {
+
+    border-bottom: 1px solid #D6D6D6;
+
+}
+
+.accordion-flush .accordion-item:last-child {
+    
+    border-bottom: 1px solid #D6D6D6;
+
+}
+
+.accordion-button:not(.collapsed) {
+    
+    color: black;
+    box-shadow: none;
+    border-bottom: 1px solid #D6D6D6;
+    background-color: white;
+
+}
+
+.accordion-body {
+    
+    padding: 22px 0;
+    text-align: justify;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: black;
+
+}
+
+.accordion-button::after {
+
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='%23333' xmlns='http://www.w3.org/2000/svg'%3e%3cpath fill-rule='evenodd' d='M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z' clip-rule='evenodd'/%3e%3c/svg%3e");
+    transform: scale(.7) !important;
+
+}
+
+.accordion-button:not(.collapsed)::after {
+
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='%23333' xmlns='http://www.w3.org/2000/svg'%3e%3cpath fill-rule='evenodd' d='M0 8a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H1a1 1 0 0 1-1-1z' clip-rule='evenodd'/%3e%3c/svg%3e");
+
+}

@@ -1,0 +1,48 @@
+/* Partes Web */
+@import url(./header.css);
+@import url(./descripcion-pagina.css);
+@import url(./footer.css);
+/* Fin Partes Web */
+
+/* Secciones Web */
+@import url(./reservas.css);
+/* Fin Secciones Web */
+
+
+/* Componentes */
+@import url(./acordeon.css);
+@import url(./inputs.css);
+/* Componentes */
+
+
+body {
+
+    color: black;
+
+}
+
+h1, h2, h3, h4, h5 {
+
+    font-family: NTF-Grand-Medium;
+
+}
+
+/* Fuentes */
+
+@font-face {
+
+    font-family: NTF-Grand-Medium;
+    src: url(../fonts/NTF-Grand-Medium.otf) format('opentype');
+
+}
+
+@font-face {
+
+    font-family: NTF-Grand-Light;
+    src: url(../fonts/NTF-Grand-Light.otf) format('opentype');
+
+}
+
+/* Fin Fuentes */
+
+

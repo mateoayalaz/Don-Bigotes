@@ -1,0 +1,169 @@
+/*----------------------------------------------------------------------*/
+/* ------------------------- CONTENEDOR COLUMNAS ---------------------- */
+/*----------------------------------------------------------------------*/
+
+.contenedor {
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 3rem;
+    row-gap: 1rem;
+    background-color: white;
+
+}
+
+.contenedor > div {
+
+    background-color: white;
+
+}
+
+.contenedor > div:nth-child(2) {
+
+    height: fit-content;
+    align-self: center;
+
+}
+
+.contenedor > div:nth-child(2) > p {
+
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 13px;
+
+}
+
+/*----------------------------------------------------------------------*/
+/* ------------------------- CONTENEDOR COLUMNAS ---------------------- */
+/*----------------------------------------------------------------------*/
+
+/*----------------------------------------------------------------------*/
+
+/*----------------------------------------------------------------------*/
+/* ------------------------- COLUMNA IZQUIERDA ------------------------ */
+/*----------------------------------------------------------------------*/
+
+/* PESTAÑA DESCRIPCIÓN */
+
+/* Iconos */
+
+#duracion {
+
+    font-size: 0.95rem;
+
+}
+
+#icono-dinero {
+
+    font-size: 1.2rem;
+
+}
+
+#personal {
+
+    font-size: 1rem;
+
+}
+
+/* Fin Iconos */
+
+/* FIN PESTAÑA DESCRIPCIÓN */
+
+/*----------------------------------------------------------------------*/
+
+/* PESTAÑA CALIFICACIONES */
+
+#calificacion > div > div {
+
+    
+    border-radius: 0.27rem;
+    padding: .5rem 1rem;
+    /*padding: .5rem 1rem .9rem 1rem;*/
+
+}
+
+#calificacion > * {
+
+    color: black;
+
+}
+
+#calificacion > div > div > div > h3 {
+
+    font-size: 20px;
+
+}
+
+#puntaje {
+
+    background-color: black;
+
+}
+
+#puntaje > * {
+
+    color: white;
+
+}
+
+#estrella {
+
+    font-size: .7rem;
+    vertical-align: middle;
+
+}
+
+/* PESTAÑA CALIFICACIONES */
+
+/*----------------------------------------------------------------------*/
+/* ------------------------- COLUMNA IZQUIERDA ------------------------ */
+/*----------------------------------------------------------------------*/
+
+/*----------------------------------------------------------------------*/
+
+/*----------------------------------------------------------------------*/
+/* -------------------------- COLUMNA DERECHA ------------------------- */
+/*----------------------------------------------------------------------*/
+
+.horarios {
+
+    display: block;
+    font-size: 17px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.contenedor-citas > div > div > p {
+
+    font-family: NTF-Grand-Medium;
+
+}
+
+.contenedor-citas > div > div > button {
+
+    padding: 0.3rem 1.5rem;
+    font-family: NTF-Grand-Light;
+    font-size: 13px;
+    color: white;
+    letter-spacing: 0.05rem;
+    background-color: black;
+
+}
+
+.contenedor-citas > div > div > button:hover {
+
+    border: 1px solid black;
+    color: black;
+    background-color: transparent;
+
+}
+
+.contenedor-citas {
+
+    /*row-gap: 15px;*/
+    height: 256px;
+
+}
+
+/*----------------------------------------------------------------------*/
+/* -------------------------- COLUMNA DERECHA ------------------------- */
+/*----------------------------------------------------------------------*/
