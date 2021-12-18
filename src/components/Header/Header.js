@@ -1,33 +1,8 @@
 import React from 'react';
 import Logo from './logo.svg';
+import Confirm from 'notiflix';
 
 function Header() {
-
-    
-    
-    function alerta() {
-
-        alert("prueba");
-        console.log("prueba");
-
-        /*
-        Confirm.show(
-            'Notiflix Confirm',
-            'Do you agree with me?',
-            'Yes',
-            'No',
-            () => {
-            alert('Thank you.');
-            },
-            () => {
-            alert('If you say so...');
-            },
-            {
-            },
-            );
-            */
-        
-      }
 
         return (
 
@@ -63,7 +38,7 @@ function Header() {
                     <button type="button" className="btn btn-sm px-3 me-2">
                         Registrarse
                     </button>
-                    <button type="button" id="boton-iniciar-sesion" className="btn btn-sm  px-3" onClick={this.alerta}>
+                    <button type="button" id="boton-iniciar-sesion" className="btn btn-sm  px-3">
                         Iniciar Sesion
                     </button>
                 </div>
