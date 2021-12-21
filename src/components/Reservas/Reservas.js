@@ -6,16 +6,21 @@ function Reservas() {
     const current = new Date();
     const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
 
-    const getServicio = () => {
+    const getServicio = (id_servicio) => {
 
-        axios.get('http://localhost:3900/api/servicio/servicios/')
+        axios.get(`http://localhost:3900/api/servicio/servicios/${id_servicio}`)
         .then(response => {
 
             console.log(response.data);
+            alert(  JSON.stringify(response.data)  );
 
         });
 
 
+    }
+
+    function sayHello(name) {
+        alert(`hello, ${name}`);
     }
 
     var servicios = [
@@ -125,7 +130,7 @@ function Reservas() {
     return (
 
         <div className="container mt-5">
-            <button type="button" className="btn rounded" onClick={getServicio()}>Reservar</button>
+            <button onClick={() => getServicio('61c146de5ee34e8bba1584bc')}>Greet</button>
             <div className="contenedor">
                 <div>
                     <select id="servicios" className="form-select shadow-none" aria-label="Default select example" onChange={e => setIdSeleccionado(e.target.value)}>
