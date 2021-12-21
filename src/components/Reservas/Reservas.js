@@ -4,7 +4,7 @@ function Reservas() {
 
     const current = new Date();
     const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
-
+    
     var servicios = [
 
         {id: 0, nombre: "Afeitado", descripcion: "Afeitado de Barbero tradicional, con cuchilla o navaja clásica. Se suministramos calor para abrir el poro de la piel en tu barba primero, luego ponemos la crema de afeitar con brocha de tejón. Finalmente se aplica una loción para después del afeitado que calme la piel mientras se hace un masaje para reactivar la circulación.", duracion: "15:00 min.", genero: "Masculino", precio: 8000},
