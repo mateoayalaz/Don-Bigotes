@@ -5,14 +5,17 @@ function Reservas() {
 
     const current = new Date();
     const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
+    var servi;
+
 
     const getServicio = (id_servicio) => {
 
         axios.get(`http://localhost:3900/api/servicio/servicios/${id_servicio}`)
         .then(response => {
 
-            console.log(response.data);
-            alert(  JSON.stringify(response.data)  );
+            servi = (response.data);
+
+            console.log(servi);
 
         });
 
