@@ -1,10 +1,23 @@
 import React, { Component, useState } from 'react';
+import axios from 'axios';
 
 function Reservas() {
 
     const current = new Date();
     const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
-    
+
+    const getServicio = () => {
+
+        axios.get('http://localhost:3900/api/servicio/servicios/')
+        .then(response => {
+
+            console.log(response.data);
+
+        });
+
+
+    }
+
     var servicios = [
 
         {id: 0, nombre: "Afeitado", descripcion: "Afeitado de Barbero tradicional, con cuchilla o navaja clásica. Se suministramos calor para abrir el poro de la piel en tu barba primero, luego ponemos la crema de afeitar con brocha de tejón. Finalmente se aplica una loción para después del afeitado que calme la piel mientras se hace un masaje para reactivar la circulación.", duracion: "15:00 min.", genero: "Masculino", precio: 8000},
@@ -19,7 +32,6 @@ function Reservas() {
 
     const [idSeleccionado, setIdSeleccionado] = React.useState(0);
     let servicio = servicios[idSeleccionado];
-    console.log(servicio);
    
     /* --------------------------------------------------------------------- */
 
@@ -113,6 +125,7 @@ function Reservas() {
     return (
 
         <div className="container mt-5">
+            <button type="button" className="btn rounded" onClick={getServicio()}>Reservar</button>
             <div className="contenedor">
                 <div>
                     <select id="servicios" className="form-select shadow-none" aria-label="Default select example" onChange={e => setIdSeleccionado(e.target.value)}>
