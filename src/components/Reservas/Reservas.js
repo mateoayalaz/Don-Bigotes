@@ -1,94 +1,53 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import axios from 'axios';
+import swal from 'sweetalert';
+
 
 function Reservas() {
 
     const current = new Date();
     const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
-    var servi;
 
-
-    const getServicio = (id_servicio) => {
-
-        axios.get(`http://localhost:3900/api/servicio/servicios/${id_servicio}`)
-        .then(response => {
-
-            servi = (response.data);
-
-            console.log(servi);
-
-        });
-
-
-    }
-
-    function sayHello(name) {
-        alert(`hello, ${name}`);
-    }
-
-    var servicios = [
-
-        {id: 0, nombre: "Afeitado", descripcion: "Afeitado de Barbero tradicional, con cuchilla o navaja clásica. Se suministramos calor para abrir el poro de la piel en tu barba primero, luego ponemos la crema de afeitar con brocha de tejón. Finalmente se aplica una loción para después del afeitado que calme la piel mientras se hace un masaje para reactivar la circulación.", duracion: "15:00 min.", genero: "Masculino", precio: 8000},
-
-        {id: 1, nombre: "Barba", descripcion: "Servicio especializado en el arreglo de barba, asesorando el diseño y la forma más adecuada para el rostro del cliente. Usamos tanto técnicas de máquina como de navaja clásica para crear el diseño, dependiendo de las características particulares de la propia barba.", duracion: "30:00 min.", genero: "Masculino", precio: 15000},
-
-        {id: 2, nombre: "Corte", descripcion: "Corte sencillo con tijera o maquina, una perfecta combinación de lo clásico con lo moderno con un toque de elegancia se suma a un ritual único, donde el Barbero busca dar la mejor apariencia adaptando lo genérico de un corte o peinado a lo particular de cada cliente, y su gusto.", duracion: "40:00 min.", genero: "Masculino", precio: 12000},
-
-        {id: 3, nombre: "Mascarilla puntos negros", descripcion: "Mascarilla hidroplástica negra, perfecta para combatir los puntos negros y remover impurezas del rostro. Combinado extracto de aloe vera y una fórmula a base de ácido hialurónico, indicada para todo tipo de piel.", duracion: "17:00 min.", genero: "Unisex", precio: 15000}
-
-    ];
-
+    const [fetchedData, setFetchedData] = useState([]);
     const [idSeleccionado, setIdSeleccionado] = React.useState(0);
-    let servicio = servicios[idSeleccionado];
-   
-    /* --------------------------------------------------------------------- */
 
-    /*
-    var horarios = [[1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1], [0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1], [0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0]];
+    var horarios = {
 
-    var array_A_Usar = horarios[idSeleccionado];
+        0: [{ id: 0, hora: '8:00 a.m.', estado: 1 }, { id: 1, hora: '9:00 a.m.', estado: 1 }, { id: 2, hora: '10:00 a.m.', estado: 0 }, { id: 3, hora: '11:00 a.m.', estado: 1 }, { id: 4, hora: '12:00 a.m.', estado: 0 }, { id: 5, hora: '1:00 p.m.', estado: 0 }, { id: 6, hora: '2:00 p.m.', estado: 1 }, { id: 7, hora: '3:00 p.m.', estado: 0 }, { id: 8, hora: '4:00 p.m.', estado: 0 }, { id: 9, hora: '5:00 p.m.', estado: 0 }, { id: 10, hora: '6:00 p.m.', estado: 1 }, { id: 11, hora: '7:00 p.m.', estado: 1 }],
+        1: [{ id: 0, hora: '8:00 a.m.', estado: 0 }, { id: 1, hora: '9:00 a.m.', estado: 0 }, { id: 2, hora: '10:00 a.m.', estado: 1 }, { id: 3, hora: '11:00 a.m.', estado: 1 }, { id: 4, hora: '12:00 a.m.', estado: 1 }, { id: 5, hora: '1:00 p.m.', estado: 1 }, { id: 6, hora: '2:00 p.m.', estado: 0 }, { id: 7, hora: '3:00 p.m.', estado: 0 }, { id: 8, hora: '4:00 p.m.', estado: 1 }, { id: 9, hora: '5:00 p.m.', estado: 1 }, { id: 10, hora: '6:00 p.m.', estado: 0 }, { id: 11, hora: '7:00 p.m.', estado: 0 }],
+        2: [{ id: 0, hora: '8:00 a.m.', estado: 1 }, { id: 1, hora: '9:00 a.m.', estado: 0 }, { id: 2, hora: '10:00 a.m.', estado: 1 }, { id: 3, hora: '11:00 a.m.', estado: 0 }, { id: 4, hora: '12:00 a.m.', estado: 1 }, { id: 5, hora: '1:00 p.m.', estado: 0 }, { id: 6, hora: '2:00 p.m.', estado: 1 }, { id: 7, hora: '3:00 p.m.', estado: 0 }, { id: 8, hora: '4:00 p.m.', estado: 1 }, { id: 9, hora: '5:00 p.m.', estado: 0 }, { id: 10, hora: '6:00 p.m.', estado: 1 }, { id: 11, hora: '7:00 p.m.', estado: 0 }],
+        3: [{ id: 0, hora: '8:00 a.m.', estado: 1 }, { id: 1, hora: '9:00 a.m.', estado: 1 }, { id: 2, hora: '10:00 a.m.', estado: 1 }, { id: 3, hora: '11:00 a.m.', estado: 1 }, { id: 4, hora: '12:00 a.m.', estado: 1 }, { id: 5, hora: '1:00 p.m.', estado: 1 }, { id: 6, hora: '2:00 p.m.', estado: 1 }, { id: 7, hora: '3:00 p.m.', estado: 1 }, { id: 8, hora: '4:00 p.m.', estado: 1 }, { id: 9, hora: '5:00 p.m.', estado: 1 }, { id: 10, hora: '6:00 p.m.', estado: 1 }, { id: 11, hora: '7:00 p.m.', estado: 1 }]
 
-    const Prueba_Hora = ({ estado, hora }) => {
+    };
 
-        return (
-
-            <>{!estado ? (
-
-                <div className="d-flex justify-content-between">
-                    <div className="align-self-center">
-                        <p className="m-0">{hora}</p>
-                    </div>
-                    <div>
-                        <button type="button" className="btn rounded">Reservar</button>
-                    </div>
-                </div>
-
-            ) :
-
-                <div className="d-flex justify-content-between">
-                    <div className="align-self-center">
-                        <p className="m-0 text-muted">{hora}</p>
-                    </div>
-                    <div>
-                        <button type="button" className="btn rounded disabled">Reservar</button>
-                    </div>
-                </div>
-
-            }</>
+    const getData = async (id) => {
+        const respuesta = await axios.get(
+            `http://localhost:3900/api/servicio/${id}`
 
         );
+        setFetchedData(respuesta.data);
+    };
+
+    const Procesar = (id) => {
+
+        let codigos = ["61c146de5ee34e8bba1584bc", "61c255a99d2a7eb45ab1e6d4", "61c24f829d2a7eb45ab1e6d1", "61c24fc99d2a7eb45ab1e6d2"];
+     
+        setIdSeleccionado(id);
+
+        getData(codigos[id]);
+
 
     }
-    */
 
-    var horarios = { 
+    function sayHello(hora) {
         
-        0: [{ id: 0, hora: '8:00 a.m.', estado: 1 }, { id: 1, hora: '9:00 a.m.', estado: 1 }, { id: 2, hora: '10:00 a.m.', estado: 0 }, { id: 3, hora: '11:00 a.m.', estado: 1 }, { id: 4, hora: '12:00 a.m.', estado: 0 }, { id: 5, hora: '1:00 p.m.', estado: 0 }, { id: 6, hora: '2:00 p.m.', estado: 1 }, { id: 7, hora: '3:00 p.m.', estado: 0 }, { id: 8, hora: '4:00 p.m.', estado: 0 }, { id: 9, hora: '5:00 p.m.', estado: 0 }, { id: 10, hora: '6:00 p.m.', estado: 1 }, { id: 11, hora: '7:00 p.m.', estado: 1 }],
-        1: [{ id: 0, hora: '8:00 a.m.', estado: 0 }, { id: 1, hora: '9:00 a.m.', estado: 0 }, { id: 2, hora: '10:00 a.m.', estado: 1 }, { id: 3, hora: '11:00 a.m.', estado: 1 }, { id: 4, hora: '12:00 a.m.', estado: 1 }, { id: 5, hora: '1:00 p.m.', estado: 1 }, { id: 6, hora: '2:00 p.m.', estado: 0 }, { id: 7, hora: '3:00 p.m.', estado: 0 }, { id: 8, hora: '4:00 p.m.', estado: 1 }, { id: 9, hora: '5:00 p.m.', estado: 1 }, { id: 10, hora: '6:00 p.m.', estado: 0 }, { id: 11, hora: '7:00 p.m.', estado: 0 }], 
-        2: [{ id: 0, hora: '8:00 a.m.', estado: 1 }, { id: 1, hora: '9:00 a.m.', estado: 0 }, { id: 2, hora: '10:00 a.m.', estado: 1 }, { id: 3, hora: '11:00 a.m.', estado: 0 }, { id: 4, hora: '12:00 a.m.', estado: 1 }, { id: 5, hora: '1:00 p.m.', estado: 0 }, { id: 6, hora: '2:00 p.m.', estado: 1 }, { id: 7, hora: '3:00 p.m.', estado: 0 }, { id: 8, hora: '4:00 p.m.', estado: 1 }, { id: 9, hora: '5:00 p.m.', estado: 0 }, { id: 10, hora: '6:00 p.m.', estado: 1 }, { id: 11, hora: '7:00 p.m.', estado: 0 }], 
-        3: [{ id: 0, hora: '8:00 a.m.', estado: 1 }, { id: 1, hora: '9:00 a.m.', estado: 1 }, { id: 2, hora: '10:00 a.m.', estado: 0 }, { id: 3, hora: '11:00 a.m.', estado: 1 }, { id: 4, hora: '12:00 a.m.', estado: 0 }, { id: 5, hora: '1:00 p.m.', estado: 0 }, { id: 6, hora: '2:00 p.m.', estado: 1 }, { id: 7, hora: '3:00 p.m.', estado: 0 }, { id: 8, hora: '4:00 p.m.', estado: 0 }, { id: 9, hora: '5:00 p.m.', estado: 0 }, { id: 10, hora: '6:00 p.m.', estado: 1 }, { id: 11, hora: '7:00 p.m.', estado: 1 }]
-    
-    };
+
+        swal({
+            title: '¿Realizar reserva?',
+            text: `Esta seguro de realizar la reserva a las: ${hora}`,
+          })
+        
+    }
 
     const Prueba_Hora2 = () => {
 
@@ -106,7 +65,7 @@ function Reservas() {
                                     <p className="m-0">{item.hora}</p>
                                 </div>
                                 <div>
-                                    <button type="button" className="btn rounded">Reservar</button>
+                                    <button type="button" className="btn rounded" onClick={() => sayHello(item.hora)}>Reservar</button>
                                 </div>
                             </div>
 
@@ -133,10 +92,9 @@ function Reservas() {
     return (
 
         <div className="container mt-5">
-            <button onClick={() => getServicio('61c146de5ee34e8bba1584bc')}>Greet</button>
             <div className="contenedor">
                 <div>
-                    <select id="servicios" className="form-select shadow-none" aria-label="Default select example" onChange={e => setIdSeleccionado(e.target.value)}>
+                    <select id="servicios" className="form-select shadow-none" aria-label="Default select example" onChange={e => Procesar(e.target.value)}>
                         <option slected value="0">Afeitado</option>
                         <option value="1">Barba</option>
                         <option value="2">Corte</option>
@@ -157,11 +115,11 @@ function Reservas() {
                             </h2>
                             <div id="faq-content-1" className="accordion-collapse collapse show" data-bs-parent="#faqlist">
                                 <div className="accordion-body">
-                                    <p id="descripcion">{servicio.descripcion}</p>
+                                    <p id="descripcion">{fetchedData.servicios ? fetchedData.servicios.descripcion : "Cargando..."}</p>
                                     <div className="d-flex justify-content-between mt-4">
-                                        <div><p className="m-0"><i id="duracion" className="far fa-clock fa-lg me-2"></i>Duracion promedio: {servicio.duracion}</p></div>
-                                        <div><p className="m-0"><i id="icono-dinero" className="far fa-money-bill-alt fa-lg me-2"></i>Valor: ${servicio.precio}</p></div>
-                                        <div><p className="m-0"><i className="fas fa-venus-mars fa-lg me-2"></i>Genero: {servicio.genero}</p></div>
+                                        <div><p className="m-0"><i id="duracion" className="far fa-clock fa-lg me-2"></i>Duracion promedio: {fetchedData.servicios ? fetchedData.servicios.duracion : "Cargando..."}</p></div>
+                                        <div><p className="m-0"><i id="icono-dinero" className="far fa-money-bill-alt fa-lg me-2"></i>Valor: ${fetchedData.servicios ? fetchedData.servicios.costo : "Cargando..."}</p></div>
+                                        <div><p className="m-0"><i className="fas fa-venus-mars fa-lg me-2"></i>Genero: {fetchedData.servicios ? fetchedData.servicios.genero : "Cargando..."}</p></div>
                                     </div>
                                 </div>
                             </div>
@@ -191,14 +149,14 @@ function Reservas() {
                                                 <h3 className="m-0">124</h3>
                                             </div>
                                         </div>
-                                        <div className="align-self-start d-flex flex-column gap-1">
+                                        {/*<div className="align-self-start d-flex flex-column gap-1">
                                             <div>
                                                 Positivas
                                             </div>
                                             <div>
                                                 <h3 className="m-0">93%</h3>
                                             </div>
-                                        </div>
+                                        </div>*/}
                                         <div className="align-self-start d-flex flex-column gap-1">
                                             <div>
                                                 Reseñas
@@ -217,7 +175,7 @@ function Reservas() {
                     </div>
                 </div>
                 <div className="contenedor-citas border p-2 d-flex flex-column gap-3 overflow-auto">
-                    <Prueba_Hora2/>
+                    <Prueba_Hora2 />
                 </div>
             </div>
         </div>
