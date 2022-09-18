@@ -5,7 +5,6 @@ import Contenedor from './components/Contenedor/Contenedor';
 import Footer from './components/Footer/Footer';
 
 function App() {
-  
   return (
     
     <div className="App">
@@ -14,9 +13,6 @@ function App() {
       <Contenedor/>
       <Footer/>
     </div>
-
   );
-
 }
-
 export default App;
